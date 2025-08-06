@@ -21,7 +21,11 @@
   <script src="xterm.js"></script>
   <script>
     const term = new Terminal();
-    const socket = new WebSocket(`ws://${location.host}`);
+
+    // Connect to /ws explicitly
+    const socketProtocol = location.protocol === "https:" ? "wss" : "ws";
+    const socket = new WebSocket(`${socketProtocol}://${location.host}/ws`);
+
     term.open(document.getElementById("terminal"));
 
     term.onData(data => {
