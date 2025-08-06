@@ -6,7 +6,9 @@ const path = require("path");
 
 const app = express();
 const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
+
+// ✅ Attach WebSocket server to path /ws
+const wss = new WebSocket.Server({ server, path: "/ws" });
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -36,4 +38,5 @@ wss.on("connection", function connection(ws) {
 const PORT = 3000;
 server.listen(PORT, () => {
   console.log(`🚀 Terminal running at http://localhost:${PORT}`);
+  console.log(`💬 WebSocket listening on ws://localhost:${PORT}/ws`);
 });
