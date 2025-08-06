@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Web Terminal</title>
+  <link rel="stylesheet" href="xterm.css" />
+  <style>
+    body, html {
+      margin: 0;
+      height: 100%;
+      background: black;
+    }
+    #terminal {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal"></div>
+  <script src="xterm.js"></script>
+  <script>
+    const term = new Terminal();
+    const socket = new WebSocket(`ws://${location.host}`);
+    term.open(document.getElementById("terminal"));
+
+    term.onData(data => {
+      socket.send(data);
+    });
+
+    socket.onmessage = e => {
+      term.write(e.data);
+    };
+  </script>
+</body>
+</html>
