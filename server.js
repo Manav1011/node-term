@@ -35,7 +35,7 @@ wss.on("connection", function connection(ws) {
   });
 });
 
-const PORT = 3000;
+const PORT = 10002;
 server.listen(PORT, () => {
   console.log(`🚀 Terminal running at http://localhost:${PORT}`);
   console.log(`💬 WebSocket listening on ws://localhost:${PORT}/ws`);
